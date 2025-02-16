@@ -1,0 +1,20 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container pt-3">
+{#        {% include 'adsense-row.html.twig' %}#}
+        <div class="row">
+            <div class="col-12 mt-4">
+                {% include content %}
+            </div>
+        </div>
+{#        {% include 'adsense-row.html.twig' %}#}
+        <div class="row">
+            <div class="col-12 text-center mt-5">
+                <a href="{{ path('default') }}" class="btn btn-outline-primary mt-5"><div class="d-flex">{{ ux_icon('bi:cloud-upload-fill', {class: 'me-3 align-self-center'}) }} Jetzt ein Bild hochladen</div></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

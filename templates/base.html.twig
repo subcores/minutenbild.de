@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Minutenbild :: Dein Bildupload für den Augenblick{% endblock %}</title>
+{#    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>mb</text></svg>">#}
+{#    {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}#}
+    {% block stylesheets %}
+    {% endblock %}
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+{#    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">#}
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+</head>
+<body>
+{% block header %}
+    <div class="position-fixed top-0 end-0 z-3">
+        <div class="m-2">
+            <button class="btn m-0 p-0 d-none" data-theme-value="light" id="sw_l">{{ ux_icon('bi:sun', {class: 'mx-1 active'}) }}</button>
+            <button class="btn m-0 p-0 d-none" data-theme-value="dark" id="sw_d">{{ ux_icon('bi:moon-stars', {class: 'mx-1'}) }}</button>
+        </div>
+    </div>
+    <div class="container py-3">
+        <div class="row py-4">
+            <div class="col-12">
+                <a href="{{ url('default') }}" class="logo mx-auto py-3 py-md-4"></a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <header class="row py-5 border-bottom border-secondary">
+            <h1 class="col-12 text-center text-white header-text p-0 m-0">
+                Dein Bildupload für den Augenblick
+            </h1>
+        </header>
+    </div>
+{% endblock %}
+{% block body %}{% endblock %}
+{% block footer %}
+    <div class="container">
+        <footer class="row mt-5">
+            <div class="col-12 font-sm text-center py-4 font-italic border-top border-secondar d-flex justify-content-between">
+                <span class="d-flex">Made with {{ ux_icon('bi:heart-fill', {class: 'mx-2 text-danger align-self-center'}) }} in {{ ux_icon('noto-v1:flag-for-flag-germany', {class: 'mx-2 align-self-center'}) }}.</span>
+                <span class="d-flex">
+                    <a href="{{ url('content', {slug: 'datenschutz'}) }}" class="nav-item px-2">Datenschutz</a> |
+                    <a href="{{ url('content', {slug: 'impressum'}) }}" class="nav-item px-2">Anbieterkennzeichnung</a>
+                </span>
+            </div>
+        </footer>
+    </div>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,27 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container py-3">
+        {% include 'adsense-row.html.twig' %}
+        <div class="row">
+            <div class="col-12 text-center pt-5 my-5">
+                <h1>Dieses Bild ist nicht mehr verfügbar :(</h1>
+            </div>
+            <div class="col-12 text-center pb-5">
+                Das Bild für die eingegebene URL ist nicht verfügbar.<br>
+                Dieses kann folgende Gründe haben:
+                <p>
+                    <ul class="list-unstyled">
+                        <li>Das Bild wurde bereits angesehen und ist somit nicht mehr verfügbar.</li>
+                        <li>Das Bild wurde durch ein Kennwort geschützt und das eingegebene Kennwort ist falsch.</li>
+                        <li>Die Minuten für das Bild sind abgelaufen.</li>
+                    </ul>
+                </p>
+                <b>
+                    <a href="{{ url('default') }}" type="button" class="btn btn-outline-primary">Eigenes Bild hochladen.</a>
+                </b>
+            </div>
+        </div>
+    </div>
+{% endblock %}

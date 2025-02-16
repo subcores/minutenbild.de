@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% include 'adsense-row.html.twig' %}
+    <div class="container-fluid py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="position-relative">
+                    <div class="position-absolute top-0 bottom-0 start-0 end-0"><img src="{{ asset('images/nsiduc.gif') }}" width="100%" height="100%" alt=""></div>
+                    <img src="{{ image_src }}" class="img-fluid" alt="">
+                    {% if message is not empty %}
+                    <div class="py-3" style="font-size:1.2rem">
+                        {{ message }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% if timeout is defined and timeout > 0 %}
+    <script type="text/javascript">
+        setTimeout( function(){ location.reload(); }, {{ timeout }});
+    </script>
+    {% endif %}
+{% endblock %}

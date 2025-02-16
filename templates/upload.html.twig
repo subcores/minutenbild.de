@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container pt-3 pb-5">
+        {% include 'adsense-row.html.twig' %}
+        <div class="row">
+            <div class="col-12 mt-4">
+                <h2>Bildupload für den Augenblick</h2>
+                <img src="{{ asset('images/photos-7666143_1280.jpg') }}" class="ms-0 ms-lg-3 mb-2 float-md-end" style="width: 100%;max-width: 520px;">
+                Hier kannst du dein Bild jemandem für ein paar Minuten zur Verfügung stellen. Du entscheidest wie lange dein Bild auf unserem Server zur Ansicht gespeichert werden soll.
+                Nach dem Upload erhältst du eine eindeutige URI zu dem Bild, ohne den Bildnamen anzuzeigen. Die hochgeladenen Bilder sind ohne die entsprechende URL nicht im Browser aufrufbar.
+                <h2 class="h4 mt-3">Keine Anmeldung, keine Kosten und völlig anonym.</h2>
+                Der Upload von jugendgefährdenden, illegalen oder rassistischen, sowie Rechte oder Würde anderer Personen verletzenden Inhalten ist verboten.
+                Ansonsten kannst du hier alles an Bildern oder Fotos zeigen, ohne das sie danach im Netz gefunden werden.
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-4 mt-4">
+                <div class="alert alert-secondary h4"><div class="d-flex justify-content-between">{{ ux_icon('bi:fast-forward', {class: 'me-3 text-primary align-self-center'}) }} Schnell {{ ux_icon('bi:check-lg', {class: 'ms-2 text-primary align-self-center'}) }}</div></div>
+            </div>
+            <div class="col-12 col-md-4 mt-4">
+                <div class="alert alert-secondary h4"><div class="d-flex justify-content-between">{{ ux_icon('bi:shield-lock', {class: 'me-3 text-primary align-self-center'}) }} Sicher {{ ux_icon('bi:check-lg', {class: 'ms-2 text-primary align-self-center'}) }}</div></div>
+            </div>
+            <div class="col-12 col-md-4 mt-4">
+                <div class="alert alert-secondary h4"><div class="d-flex justify-content-between">{{ ux_icon('bi:incognito', {class: 'me-3 text-primary align-self-center'}) }}  Anonym {{ ux_icon('bi:check-lg', {class: 'ms-2 text-primary align-self-center'}) }}</div></div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid bg-body-tertiary">
+        <a name="upload"></a>
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-12">
+                    <h2>Dein Upload</h2>
+                </div>
+            </div>
+            {% if form is defined %}
+            {{ form_start(form, {'attr': {'id': 'uplform', class: 'dropzone'}}) }}
+            <div class="row">
+
+                <div class="col-12">
+                    <div class="text-warning p-2 mt-2 d-flex">
+                        {{ ux_icon('bi:exclamation-triangle', {class: 'me-2 align-self-center'}) }} Denke daran: Der Upload von jugendgefährdenden, illegalen oder rassistischen, sowie Rechte oder Würde anderer Personen verletzenden Inhalten ist verboten.
+                    </div>
+                </div>
+                <div class="col-12 py-3">
+                    <div class="form-group file-container">
+                        <label for="image"></label>
+                        <input type="file" name="imageupload[image]" id="image" required="required" onchange="document.getElementById('n').innerHTML = this.value.substring(this.value.lastIndexOf('\\')+1)">
+                        <div class="dropZone bg-body-secondary" id="dropZone">
+                            <div class="success">{{ ux_icon('bi:hand-thumbs-up', {class: 'mx-1 text-primary h1'}) }}<br><span id="n"></span> wurde ausgewählt.</div>
+                            <div class="default">{{ ux_icon('bi:patch-question', {class: 'mx-1 text-secondary h1'}) }}<br>Klicke hier, um dein Bild auszusuchen oder ziehe die Datei einfach hier hinein. Maximal: {{ max_upload_size }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 py-3">
+                    {{ form_label(form.minutes) }}
+                    {{ form_widget(form.minutes) }}
+                    {{ form_help(form.minutes) }}
+                </div>
+                <div class="col-12 col-lg-6 py-3">
+                    {{ form_label(form.password) }}
+                    {{ form_widget(form.password) }}
+                    {{ form_help(form.password) }}
+                </div>
+                <div class="col-12 py-3">
+                    {{ form_label(form.message) }}
+                    {{ form_widget(form.message) }}
+                    {{ form_help(form.message) }}
+                </div>
+                <div class="col-12 py-3">
+                    {{ form_label(form.isTimeout) }}
+                    {{ form_widget(form.isTimeout) }}
+                    {{ form_help(form.isTimeout) }}
+                </div>
+                <div class="col-12 py-3 text-center">
+                    <button type="submit" class="btn btn-lg btn-outline-primary me-2"><div class="d-flex">{{ ux_icon('bi:cloud-upload-fill', {class: 'me-3 align-self-center'}) }} Bild hochladen</div></button>
+                    <button type="reset" class="btn btn-lg btn-outline-warning ms-2"><div class="d-flex">{{ ux_icon('bi:bootstrap-reboot', {class: 'me-3 align-self-center'}) }} Reset</div></button>
+                </div>
+            </div>
+            {{ form_end(form, {render_rest: false}) }}
+            {% else %}
+            <div class="row">
+                <div class="col-12 py-3 text-center">
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-lg text-center" disabled value="{{ hash }}" id="hash">
+                        <button type="button" onclick="addToClipboard('{{ hash }}')" class="btn btn-outline-primary"><div class="d-flex">{{ ux_icon('bi:copy', {class: 'me-3 align-self-center'}) }} Kopieren</div></button>
+                    </div>
+                </div>
+                <div class="col-12 py-3 text-center">
+                    <a href="{{ path('default') }}" class="btn btn-outline-primary"><div class="d-flex">{{ ux_icon('bi:repeat', {class: 'me-3 align-self-center'}) }} Noch ein Bild hochladen</div></a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container pt-4">
+        {% include 'adsense-row.html.twig' %}
+        <div class="row">
+            <h2 class="col-12 pt-4">
+                Der schnelle kostenlose Upload!
+            </h2>
+            <div class="col-12 pt-4">
+                <img src="{{ asset('images/photo-256887_1920.jpg') }}" class="me-0 me-lg-3 mb-2 float-lg-start" style="width: 100%;max-width: 500px; opacity:1;">
+                <h3 class="h4">Minutenbild.de ist kein Bilder-Hosting.</h3>
+                MinutenBild ist eher ein Zwischenspeicher für Bilder, die über andere Kanäle veschickt werden sollen, wo es eigentlich nicht möglich ist.
+                <br>
+                Zum Beispiel um jemandem in einem Web Chat, Forum oder sonstigen Community per Privatnachricht ein Foto von sich selbst zu schicken,
+                ohne E-Mail-Adresse oder gar die Handynummer preiszugeben.
+                <br>
+                Um anonym jemandem ein Foto von sich oder etwas anderes zu schicken, greifen viele zu freien, kostenlosen Bild Hostings.
+                Oft landen private Bilder in der Google Suche oder auf anderen Seiten. Ausserdem muss man sich bei vielen Diensten erst registrieren um überhaupt etwas löschen zu können.<br>
+                Mit MinutenBild.de bleibt dein Bild für maximal 59 Minuten auf dem Server oder wird direkt nach der ersten Ansicht gelöscht.<br>
+                <br>
+                Wenn du angibst, dass das Bild nach X Minuten gelöscht werden soll, wird es auch nach X Minuten gelöscht, egal ob es schon angeschaut wurde oder nicht.
+                Wenn du die Option "Nach erstem Aufruf" wählst, wird das Bild nach der ersten Ansicht gelöscht, egal wie lange es auf dem Server war.
+                Dabei solltest du folgendes beachten:<br>
+
+                Wenn du den Bild-Shortcut von Minutenbild.de, in einem System einfügst welches eine Vorschau von dem Link generiert (wie WhatsApp oder Slack),
+                solltest du daran denken, dass die Vorschau schon der erste Aufruf ist.<br>
+                Um die Vorschau zu verhindern, kannst du bei uns auch ein Passwort angeben um dieses zu verhindern.
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

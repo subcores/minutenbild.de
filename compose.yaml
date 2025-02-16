@@ -1,0 +1,12 @@
+name: minutenbild
+services:
+    database:
+        container_name: minutenbild-mariadb
+        image: mariadb:10.5
+        environment:
+            MYSQL_DATABASE: minutenbild
+            MYSQL_ROOT_PASSWORD: devpass
+        ports:
+            - "3306:3306"
+        volumes:
+            - ${PWD}/../data/mariadb:/var/lib/mysql:rw
