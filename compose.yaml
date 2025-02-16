@@ -1,12 +1,30 @@
 name: minutenbild
 services:
+#    database:
+#        container_name: minutenbild-mariadb
+#        image: mariadb:10.5
+#        environment:
+#            MYSQL_DATABASE: minutenbild
+#            MYSQL_ROOT_PASSWORD: devpass
+#        ports:
+#            - "3306:3306"
+#        volumes:
+#            - ${PWD}/../data/mariadb:/var/lib/mysql:rw
+
     database:
-        container_name: minutenbild-mariadb
-        image: mariadb:10.5
+        container_name: minutenbild-postgres
+        image: postgres:17-alpine
         environment:
-            MYSQL_DATABASE: minutenbild
-            MYSQL_ROOT_PASSWORD: devpass
+            POSTGRES_DB: minutenbild
+            POSTGRES_USER: minutenbild
+            POSTGRES_PASSWORD: devpass
+            PGDATA: /var/lib/postgresql/data/psql
+        healthcheck:
+            test: ["CMD", "pg_isready", "-d", "businizer", "-U", "businizer"]
+            timeout: 5s
+            retries: 5
+            start_period: 60s
         ports:
-            - "3306:3306"
+            - "5432:5432"
         volumes:
-            - ${PWD}/../data/mariadb:/var/lib/mysql:rw
+            - ${PWD}/../data/postgres:/var/lib/postgresql/data:rw
